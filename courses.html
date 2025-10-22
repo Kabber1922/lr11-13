@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы - Образовательная платформа</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Переменные */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #45a049;
+            --secondary-color: #81C784;
+            --accent-color: #FFEB3B;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            
+            /* Размеры для calc */
+            --header-height: 80px;
+            --container-padding: calc(2rem + 1vw);
+            --grid-gap: calc(1rem + 0.5vw);
+        }
+
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #f0f8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: calc(1200px + 4vw);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Хедер */
+        .header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--header-height);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: calc(25px + 0.5vw);
+            padding: 0.5rem 1rem;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .search-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: calc(2rem + 1vw) 0;
+        }
+
+        /* Секции курсов */
+        .courses-page {
+            margin-bottom: calc(3rem + 1vw);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: calc(1.5rem + 0.5vw);
+        }
+
+        .section-header h1 {
+            font-size: calc(2rem + 0.5vw);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .see-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .see-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Большая сетка курсов */
+        .courses-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(calc(300px + 3vw), 1fr));
+            gap: var(--grid-gap);
+        }
+
+        .course-item-large {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1.5rem + 0.5vw);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .course-item-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-item-large .course-icon {
+            font-size: calc(2rem + 0.5vw);
+            margin-right: calc(1rem + 0.5vw);
+            width: calc(50px + 1vw);
+            text-align: center;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h3 {
+            font-size: calc(1.3rem + 0.3vw);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .duration {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .course-arrow {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: calc(35px + 0.5vw);
+            height: calc(35px + 0.5vw);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .course-arrow:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .course-item-large {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .course-item-large:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .course-item-large:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .course-item-large:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .course-item-large:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .course-item-large:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .course-item-large:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 1rem;
+                --grid-gap: 1rem;
+            }
+
+            .courses-grid-large {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .search-bar {
+                margin: 0;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" onclick="goBack()" class="back-btn">←</a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск" class="search-input">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="courses-page">
+                <div class="section-header">
+                    <h1>Популярные курсы</h1>
+                    <a href="#" class="see-more">Больше ></a>
+                </div>
+                
+                <div class="courses-grid-large">
+                    <div class="course-item-large" onclick="openCourse('ux-ui')">
+                        <div class="course-icon">🎨</div>
+                        <div class="course-info">
+                            <h3>UX/UI Дизайн</h3>
+                            <span class="duration">3ч 45мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('chemistry')">
+                        <div class="course-icon">🧪</div>
+                        <div class="course-info">
+                            <h3>Химия</h3>
+                            <span class="duration">4ч 20мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('graphics')">
+                        <div class="course-icon">🎭</div>
+                        <div class="course-info">
+                            <h3>Графический дизайн</h3>
+                            <span class="duration">4ч 15мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('biology')">
+                        <div class="course-icon">🧬</div>
+                        <div class="course-info">
+                            <h3>Биология</h3>
+                            <span class="duration">3ч 30мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('zoology')">
+                        <div class="course-icon">🐾</div>
+                        <div class="course-info">
+                            <h3>Зоология</h3>
+                            <span class="duration">2ч 50мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('computer-science')">
+                        <div class="course-icon">💻</div>
+                        <div class="course-info">
+                            <h3>Информатика</h3>
+                            <span class="duration">5ч 10мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Открыть курс
+        function openCourse(courseId) {
+            // Переход на страницу деталей курса
+            window.location.href = `course-details.html?course=${courseId}`;
+        }
+
+        // Возврат назад
+        function goBack() {
+            // Проверяем, есть ли история браузера
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Если нет истории, переходим на главную
+                window.location.href = 'home.html';
+            }
+        }
+
+        // Инициализация поиска
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInputs = document.querySelectorAll('.search-input');
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    filterCourses(query);
+                });
+            });
+        });
+
+        // Фильтрация курсов
+        function filterCourses(query) {
+            const courseItems = document.querySelectorAll('.course-item-large');
+            
+            courseItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const isVisible = title.includes(query);
+                
+                item.style.display = isVisible ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

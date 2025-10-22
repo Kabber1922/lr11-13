@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образовательная платформа - Главная</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Переменные */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #45a049;
+            --secondary-color: #81C784;
+            --accent-color: #FFEB3B;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            
+            /* Размеры для calc */
+            --header-height: 80px;
+            --container-padding: calc(2rem + 1vw);
+            --grid-gap: calc(1rem + 0.5vw);
+        }
+
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #f0f8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: calc(1200px + 4vw);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Загрузочный экран */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Иконка лампочки */
+        .lightbulb-icon {
+            position: relative;
+            width: calc(80px + 2vw);
+            height: calc(80px + 2vw);
+        }
+
+        .lightbulb-icon .bulb {
+            width: calc(60px + 1.5vw);
+            height: calc(60px + 1.5vw);
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                0 0 calc(20px + 1vw) var(--accent-color),
+                inset 0 calc(-5px - 0.5vw) calc(10px + 0.5vw) rgba(255, 235, 59, 0.3);
+        }
+
+        .lightbulb-icon .base {
+            width: calc(40px + 1vw);
+            height: calc(20px + 0.5vw);
+            background: var(--primary-color);
+            border-radius: calc(5px + 0.2vw);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 calc(2px + 0.1vw) calc(5px + 0.2vw) rgba(0, 0, 0, 0.2);
+        }
+
+        /* Приветственный экран */
+        .welcome-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #f8f9fa 100%);
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 400px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-title {
+            font-size: calc(2.5rem + 1vw);
+            font-weight: 700;
+            margin: 2rem 0;
+            color: var(--text-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Кнопки */
+        .btn {
+            padding: calc(0.75rem + 0.5vw) calc(1.5rem + 1vw);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: calc(1rem + 0.2vw);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Экраны авторизации */
+        .login-screen,
+        .register-screen {
+            min-height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #f8f9fa 100%);
+        }
+
+        .auth-container {
+            background: white;
+            padding: calc(2rem + 1vw);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-title {
+            font-size: calc(2rem + 0.5vw);
+            font-weight: 700;
+            margin: 1rem 0 2rem;
+            color: var(--text-color);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: calc(0.75rem + 0.3vw) calc(1rem + 0.5vw);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: calc(1rem + 0.1vw);
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: calc(1rem + 0.5vw);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .forgot-password {
+            text-align: right;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .auth-switch {
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .auth-switch a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        /* Хедер */
+        .header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--header-height);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: calc(25px + 0.5vw);
+            padding: 0.5rem 1rem;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .search-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: calc(2rem + 1vw) 0;
+        }
+
+        /* Секции курсов */
+        .courses-section,
+        .popular-courses {
+            margin-bottom: calc(3rem + 1vw);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: calc(1.5rem + 0.5vw);
+        }
+
+        .section-header h2 {
+            font-size: calc(1.8rem + 0.5vw);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .see-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .see-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Сетка курсов */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(calc(250px + 2vw), 1fr));
+            gap: var(--grid-gap);
+        }
+
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1.5rem + 0.5vw);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            padding-bottom: calc(4rem + 1vw);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-card .course-icon {
+            font-size: calc(2rem + 0.5vw);
+            margin-bottom: 1rem;
+        }
+
+        .course-card h3 {
+            font-size: calc(1.2rem + 0.3vw);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: calc(1.5rem + 0.5vw);
+        }
+
+        .course-stats span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .course-arrow {
+            position: absolute;
+            bottom: calc(1rem + 0.5vw);
+            right: calc(1rem + 0.5vw);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: calc(30px + 0.5vw);
+            height: calc(30px + 0.5vw);
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .course-card:hover .course-arrow {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .course-arrow:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Список курсов */
+        .courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1rem + 0.5vw);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .course-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-item .course-icon {
+            font-size: calc(1.5rem + 0.3vw);
+            margin-right: calc(1rem + 0.5vw);
+            width: calc(40px + 1vw);
+            text-align: center;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h3 {
+            font-size: calc(1.1rem + 0.2vw);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-color);
+        }
+
+        .duration {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Главное меню */
+        .main-screen {
+            display: none;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .welcome-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .auth-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .course-card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .course-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .course-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .course-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .course-item {
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .course-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .course-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .course-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .course-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .btn:hover {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        .lightbulb-icon {
+            /* Убираем анимации с лампочки */
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 1rem;
+                --grid-gap: 1rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .search-bar {
+                margin: 0;
+                max-width: none;
+            }
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+
+        .notification-success {
+            background: #4CAF50;
+        }
+
+        .notification-error {
+            background: #f44336;
+        }
+
+        .notification-info {
+            background: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Приветственное окно -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="welcome-title">Привет</h1>
+            <div class="auth-buttons">
+                <button class="btn btn-primary" onclick="showLogin()">Войти</button>
+                <div class="divider">ИЛИ</div>
+                <button class="btn btn-secondary" onclick="showRegister()">Регистрация</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма входа -->
+    <div class="login-screen" id="loginScreen">
+        <div class="auth-container">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="auth-title">Войти</h1>
+            <form class="auth-form" id="loginForm">
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Пароль" required>
+                    <span class="input-icon eye">👁</span>
+                </div>
+                <a href="#" class="forgot-password">Забыл пароль?</a>
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <p class="auth-switch">Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Форма регистрации -->
+    <div class="register-screen" id="registerScreen">
+        <div class="auth-container">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="auth-title">Зарегистрироваться</h1>
+            <form class="auth-form" id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="registerName" placeholder="Имя" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" placeholder="Пароль" required>
+                    <span class="input-icon eye">👁</span>
+                </div>
+                <div class="divider">ИЛИ</div>
+                <button type="button" class="btn btn-google">Войти с аккаунтом Google</button>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                <p class="auth-switch">Уже есть аккаунт? <a href="#" onclick="showLogin()">Войти</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Главное меню -->
+    <div class="main-screen" id="mainScreen">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="menu-toggle">☰</button>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Поиск" class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <!-- Академические курсы -->
+                <section class="courses-section">
+                    <div class="section-header">
+                        <h2>Академические курсы</h2>
+                        <a href="courses.html" class="see-more">Больше ></a>
+                    </div>
+                    <div class="courses-grid">
+                        <div class="course-card" onclick="openCourse('science')">
+                            <div class="course-icon">🧪</div>
+                            <h3>Наука</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.7</span>
+                                <span class="students">👥 3.5K</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('science')">→</button>
+                        </div>
+                        <div class="course-card" onclick="openCourse('business')">
+                            <div class="course-icon">💼</div>
+                            <h3>Бизнес-исследования</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.9</span>
+                                <span class="students">👥 4.7K</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('business')">→</button>
+                        </div>
+                        <div class="course-card" onclick="openCourse('ux-ui')">
+                            <div class="course-icon">🎨</div>
+                            <h3>UX/UI Дизайн</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.8</span>
+                                <span class="students">👥 2.1K</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Популярные курсы -->
+                <section class="popular-courses">
+                    <div class="section-header">
+                        <h2>Популярные курсы</h2>
+                        <a href="courses.html" class="see-more">Больше ></a>
+                    </div>
+                    <div class="courses-list">
+                        <div class="course-item" onclick="openCourse('ux-ui')">
+                            <div class="course-icon">🎨</div>
+                            <div class="course-info">
+                                <h3>UX/UI Дизайн</h3>
+                                <span class="duration">3ч 45мин</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                        </div>
+                        <div class="course-item" onclick="openCourse('web-design')">
+                            <div class="course-icon">🌐</div>
+                            <div class="course-info">
+                                <h3>Веб-дизайн</h3>
+                                <span class="duration">2ч 30мин</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('web-design')">→</button>
+                        </div>
+                        <div class="course-item" onclick="openCourse('graphics')">
+                            <div class="course-icon">🎭</div>
+                            <div class="course-info">
+                                <h3>Графический дизайн</h3>
+                                <span class="duration">4ч 15мин</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('graphics')">→</button>
+                        </div>
+                        <div class="course-item" onclick="openCourse('motion-graphics')">
+                            <div class="course-icon">🎬</div>
+                            <div class="course-info">
+                                <h3>Моушн-графика</h3>
+                                <span class="duration">5ч 20мин</span>
+                            </div>
+                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('motion-graphics')">→</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Основная функциональность сайта курсов
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        // Инициализация приложения
+        function initializeApp() {
+            // Скрыть загрузочный экран через 2 секунды
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
+            }, 2000);
+
+            // Инициализация форм
+            initializeForms();
+            
+            // Инициализация поиска
+            initializeSearch();
+        }
+
+        // Показать экран входа
+        function showLogin() {
+            hideAllScreens();
+            document.getElementById('loginScreen').style.display = 'flex';
+        }
+
+        // Показать экран регистрации
+        function showRegister() {
+            hideAllScreens();
+            document.getElementById('registerScreen').style.display = 'flex';
+        }
+
+        // Показать главное меню
+        function showMain() {
+            // Переходим на отдельную страницу главного меню
+            window.location.href = 'home.html';
+        }
+
+        // Скрыть все экраны
+        function hideAllScreens() {
+            const screens = ['welcomeScreen', 'loginScreen', 'registerScreen', 'mainScreen'];
+            screens.forEach(screenId => {
+                const screen = document.getElementById(screenId);
+                if (screen) {
+                    screen.style.display = 'none';
+                }
+            });
+        }
+
+        // Инициализация форм
+        function initializeForms() {
+            // Форма входа
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+
+            // Форма регистрации
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleRegister();
+                });
+            }
+
+            // Переключение видимости пароля
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            passwordInputs.forEach(input => {
+                const eyeIcon = input.parentElement.querySelector('.eye');
+                if (eyeIcon) {
+                    eyeIcon.addEventListener('click', function() {
+                        togglePasswordVisibility(input, eyeIcon);
+                    });
+                }
+            });
+
+            // Валидация email
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateEmail(input);
+                });
+            });
+        }
+
+        // Обработка входа
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                showNotification('Пожалуйста, заполните все поля', 'error');
+                return;
+            }
+
+            // Симуляция входа
+            showNotification('Вход выполнен успешно!', 'success');
+            // Сохраняем состояние входа
+            localStorage.setItem('userLoggedIn', 'true');
+            setTimeout(() => {
+                showMain();
+            }, 1500);
+        }
+
+        // Обработка регистрации
+        function handleRegister() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (!name || !email || !password) {
+                showNotification('Пожалуйста, заполните все поля', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showNotification('Пароль должен содержать минимум 6 символов', 'error');
+                return;
+            }
+
+            // Симуляция регистрации
+            showNotification('Регистрация выполнена успешно!', 'success');
+            // Сохраняем состояние входа
+            localStorage.setItem('userLoggedIn', 'true');
+            setTimeout(() => {
+                showMain();
+            }, 1500);
+        }
+
+        // Переключение видимости пароля
+        function togglePasswordVisibility(input, icon) {
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁';
+            }
+        }
+
+        // Валидация email
+        function validateEmail(input) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(input.value);
+            
+            const checkmark = input.parentElement.querySelector('.checkmark');
+            if (checkmark) {
+                checkmark.style.color = isValid ? '#4CAF50' : '#f44336';
+            }
+            
+            return isValid;
+        }
+
+        // Показать уведомление
+        function showNotification(message, type = 'info') {
+            // Создать элемент уведомления
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            // Добавить в DOM
+            document.body.appendChild(notification);
+            
+            // Анимация появления
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Удалить через 3 секунды
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Инициализация поиска
+        function initializeSearch() {
+            const searchInputs = document.querySelectorAll('.search-input');
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    filterCourses(query);
+                });
+            });
+        }
+
+        // Фильтрация курсов
+        function filterCourses(query) {
+            const courseItems = document.querySelectorAll('.course-item, .course-card');
+            
+            courseItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const isVisible = title.includes(query);
+                
+                item.style.display = isVisible ? 'flex' : 'none';
+            });
+        }
+
+        // Открыть курс
+        function openCourse(courseId) {
+            // Переход на страницу деталей курса
+            window.location.href = `course-details.html?course=${courseId}`;
+        }
+    </script>
+</body>
+</html>

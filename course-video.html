@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX/UI Дизайн - Видео курс</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Переменные */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #45a049;
+            --secondary-color: #81C784;
+            --accent-color: #FFEB3B;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            
+            /* Размеры для calc */
+            --header-height: 80px;
+            --container-padding: calc(2rem + 1vw);
+            --grid-gap: calc(1rem + 0.5vw);
+        }
+
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #f0f8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: calc(1200px + 4vw);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Хедер */
+        .header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--header-height);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .page-title {
+            font-size: calc(1.5rem + 0.5vw);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: calc(2rem + 1vw) 0;
+        }
+
+        /* Видео курс */
+        .video-course {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .video-player {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: calc(2rem + 1vw);
+            overflow: hidden;
+        }
+
+        .video-container {
+            position: relative;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: calc(400px + 10vw);
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-button-large {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: calc(80px + 2vw);
+            height: calc(80px + 2vw);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(2rem + 0.5vw);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .play-button-large:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: calc(1rem + 0.5vw);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .control-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .time-display {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .video-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: calc(1rem + 0.5vw);
+            background: #f8f9fa;
+        }
+
+        .action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: calc(0.5rem + 0.3vw) calc(1rem + 0.5vw);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .transcript-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1.5rem + 0.5vw);
+            box-shadow: var(--shadow);
+            margin-bottom: calc(2rem + 1vw);
+        }
+
+        .transcript-section h3 {
+            font-size: calc(1.3rem + 0.3vw);
+            font-weight: 600;
+            margin-bottom: calc(1.5rem + 0.5vw);
+            color: var(--text-color);
+        }
+
+        .transcript-item {
+            display: flex;
+            gap: calc(1rem + 0.5vw);
+            margin-bottom: calc(1rem + 0.5vw);
+        }
+
+        .timestamp {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            min-width: calc(50px + 1vw);
+        }
+
+        .transcript-text {
+            flex: 1;
+        }
+
+        .transcript-text p {
+            font-size: calc(1rem + 0.1vw);
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        /* Секция оформления заказа */
+        .checkout-section {
+            text-align: center;
+            margin-top: calc(2rem + 1vw);
+        }
+
+        .checkout-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: calc(1rem + 0.5vw) calc(2rem + 1vw);
+            font-size: calc(1.2rem + 0.3vw);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .video-player {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .transcript-section {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .checkout-section {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 1rem;
+                --grid-gap: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .video-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+
+        .notification-success {
+            background: #4CAF50;
+        }
+
+        .notification-error {
+            background: #f44336;
+        }
+
+        .notification-info {
+            background: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" onclick="goBack()" class="back-btn">←</a>
+                <h1 class="page-title">UX/UI Дизайн</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="video-course">
+                <!-- Видео плеер -->
+                <div class="video-player">
+                    <div class="video-container">
+                        <div class="video-placeholder">
+                            <div class="play-button-large">▶</div>
+                        </div>
+                        <div class="video-controls">
+                            <button class="control-btn">⏯</button>
+                            <span class="time-display">0:00 / 5:35</span>
+                            <button class="control-btn">🔊</button>
+                            <button class="control-btn">⚙</button>
+                            <button class="control-btn">⛶</button>
+                        </div>
+                    </div>
+                    <div class="video-actions">
+                        <button class="action-btn">Скачать</button>
+                        <button class="action-btn">Поделиться</button>
+                    </div>
+                </div>
+
+                <!-- Перевод/Транскрипт -->
+                <div class="transcript-section">
+                    <h3>Перевод!</h3>
+                    
+                    <div class="transcript-item">
+                        <span class="timestamp">0:01</span>
+                        <div class="transcript-text">
+                            <p>Настройка профилей в социальных сетях и сообществах UX дизайна, создание сети контактов и поиск наставника - это важные шаги для начинающего дизайнера.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="transcript-item">
+                        <span class="timestamp">0:55</span>
+                        <div class="transcript-text">
+                            <p>Создание онлайн портфолио, успешное прохождение собеседований и важность наставничества для UX дизайнеров - ключевые аспекты профессионального роста.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопка покупки -->
+                <div class="checkout-section">
+                    <button class="checkout-btn">Оформить заказ →</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Возврат назад
+        function goBack() {
+            // Проверяем, есть ли история браузера
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Если нет истории, переходим на главную
+                window.location.href = 'home.html';
+            }
+        }
+
+        // Воспроизведение видео
+        function playVideo(button) {
+            button.textContent = '⏸';
+            button.onclick = () => pauseVideo(button);
+            
+            const controls = button.closest('.video-container').querySelector('.video-controls');
+            if (controls) {
+                controls.style.display = 'flex';
+            }
+            
+            showNotification('Видео воспроизводится', 'info');
+        }
+
+        // Пауза видео
+        function pauseVideo(button) {
+            button.textContent = '▶';
+            button.onclick = () => playVideo(button);
+            showNotification('Видео приостановлено', 'info');
+        }
+
+        // Обработка контролов видео
+        function handleVideoControl(control) {
+            const icon = control.textContent;
+            
+            switch(icon) {
+                case '⏯':
+                    const playButton = control.closest('.video-controls').previousElementSibling.querySelector('.play-button-large');
+                    if (playButton) {
+                        if (playButton.textContent === '▶') {
+                            playVideo(playButton);
+                        } else {
+                            pauseVideo(playButton);
+                        }
+                    }
+                    break;
+                case '🔊':
+                    control.textContent = control.textContent === '🔊' ? '🔇' : '🔊';
+                    break;
+                case '⚙':
+                    showNotification('Настройки видео', 'info');
+                    break;
+                case '⛶':
+                    toggleFullscreen();
+                    break;
+            }
+        }
+
+        // Переключение полноэкранного режима
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showNotification('Не удалось перейти в полноэкранный режим', 'error');
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Показать уведомление
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Обработка скачивания
+        function handleDownload(type) {
+            showNotification(`Скачивание ${type}...`, 'info');
+            
+            setTimeout(() => {
+                showNotification(`${type} скачан успешно!`, 'success');
+            }, 2000);
+        }
+
+        // Обработка поделиться
+        function handleShare(type) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Образовательная платформа',
+                    text: `Посмотрите этот ${type}`,
+                    url: window.location.href
+                }).catch(err => {
+                    showNotification('Ошибка при попытке поделиться', 'error');
+                });
+            } else {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Ссылка скопирована в буфер обмена', 'success');
+                }).catch(() => {
+                    showNotification('Не удалось скопировать ссылку', 'error');
+                });
+            }
+        }
+
+        // Обработка оформления заказа
+        function handleCheckout() {
+            showNotification('Переход к оформлению заказа...', 'info');
+            
+            setTimeout(() => {
+                showNotification('Заказ оформлен успешно!', 'success');
+            }, 2000);
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            const playButtons = document.querySelectorAll('.play-button-large');
+            playButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    playVideo(this);
+                });
+            });
+            
+            const videoControls = document.querySelectorAll('.control-btn');
+            videoControls.forEach(control => {
+                control.addEventListener('click', function() {
+                    handleVideoControl(this);
+                });
+            });
+        });
+
+        // Добавить обработчики событий
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('action-btn') && e.target.textContent.includes('Скачать')) {
+                handleDownload('файл');
+            }
+            
+            if (e.target.classList.contains('action-btn') && e.target.textContent.includes('Поделиться')) {
+                handleShare('контент');
+            }
+            
+            if (e.target.classList.contains('checkout-btn')) {
+                handleCheckout();
+            }
+        });
+    </script>
+</body>
+</html>

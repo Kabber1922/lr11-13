@@ -1,0 +1,26 @@
+{
+  "name": "lr11-13",
+  "version": "1.0.0",
+  "description": "Сайт курсов - десктопная версия",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "browser-sync": "^2.29.3",
+    "sass": "^1.69.5"
+  },
+  "keywords": ["курсы", "образование", "сайт"],
+  "author": "",
+  "license": "MIT"
+}

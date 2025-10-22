@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Образовательная платформа</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Переменные */
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #45a049;
+            --secondary-color: #81C784;
+            --accent-color: #FFEB3B;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            
+            /* Размеры для calc */
+            --header-height: 80px;
+            --container-padding: calc(2rem + 1vw);
+            --grid-gap: calc(1rem + 0.5vw);
+        }
+
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #f0f8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: calc(1200px + 4vw);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Хедер */
+        .header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--header-height);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: calc(5px + 0.2vw);
+            padding: calc(0.5rem + 0.3vw) calc(1rem + 0.5vw);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: calc(25px + 0.5vw);
+            padding: 0.5rem 1rem;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .search-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: calc(2rem + 1vw) 0;
+        }
+
+        /* Секции курсов */
+        .courses-section,
+        .popular-courses {
+            margin-bottom: calc(3rem + 1vw);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: calc(1.5rem + 0.5vw);
+        }
+
+        .section-header h2 {
+            font-size: calc(1.8rem + 0.5vw);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .see-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .see-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Сетка курсов */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(calc(250px + 2vw), 1fr));
+            gap: var(--grid-gap);
+        }
+
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1.5rem + 0.5vw);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            padding-bottom: calc(4rem + 1vw);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-card .course-icon {
+            font-size: calc(2rem + 0.5vw);
+            margin-bottom: 1rem;
+        }
+
+        .course-card h3 {
+            font-size: calc(1.2rem + 0.3vw);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: calc(1.5rem + 0.5vw);
+        }
+
+        .course-stats span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .course-arrow {
+            position: absolute;
+            bottom: calc(1rem + 0.5vw);
+            right: calc(1rem + 0.5vw);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: calc(30px + 0.5vw);
+            height: calc(30px + 0.5vw);
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .course-card:hover .course-arrow {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .course-arrow:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Список курсов */
+        .courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: calc(1rem + 0.5vw);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .course-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-item .course-icon {
+            font-size: calc(1.5rem + 0.3vw);
+            margin-right: calc(1rem + 0.5vw);
+            width: calc(40px + 1vw);
+            text-align: center;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h3 {
+            font-size: calc(1.1rem + 0.2vw);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-color);
+        }
+
+        .duration {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .course-card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .course-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .course-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .course-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .course-item {
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .course-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .course-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .course-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .course-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 1rem;
+                --grid-gap: 1rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .search-bar {
+                margin: 0;
+                max-width: none;
+            }
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+
+        .notification-success {
+            background: #4CAF50;
+        }
+
+        .notification-error {
+            background: #f44336;
+        }
+
+        .notification-info {
+            background: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <button class="logout-btn" onclick="logout()">Выйти</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск" class="search-input">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Академические курсы -->
+            <section class="courses-section">
+                <div class="section-header">
+                    <h2>Академические курсы</h2>
+                    <a href="courses.html" class="see-more">Больше ></a>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card" onclick="openCourse('science')">
+                        <div class="course-icon">🧪</div>
+                        <h3>Наука</h3>
+                        <div class="course-stats">
+                            <span class="rating">⭐ 4.7</span>
+                            <span class="students">👥 3.5K</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('science')">→</button>
+                    </div>
+                    <div class="course-card" onclick="openCourse('business')">
+                        <div class="course-icon">💼</div>
+                        <h3>Бизнес-исследования</h3>
+                        <div class="course-stats">
+                            <span class="rating">⭐ 4.9</span>
+                            <span class="students">👥 4.7K</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('business')">→</button>
+                    </div>
+                    <div class="course-card" onclick="openCourse('ux-ui')">
+                        <div class="course-icon">🎨</div>
+                        <h3>UX/UI Дизайн</h3>
+                        <div class="course-stats">
+                            <span class="rating">⭐ 4.8</span>
+                            <span class="students">👥 2.1K</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Популярные курсы -->
+            <section class="popular-courses">
+                <div class="section-header">
+                    <h2>Популярные курсы</h2>
+                    <a href="courses.html" class="see-more">Больше ></a>
+                </div>
+                <div class="courses-list">
+                    <div class="course-item" onclick="openCourse('ux-ui')">
+                        <div class="course-icon">🎨</div>
+                        <div class="course-info">
+                            <h3>UX/UI Дизайн</h3>
+                            <span class="duration">3ч 45мин</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                    </div>
+                    <div class="course-item" onclick="openCourse('web-design')">
+                        <div class="course-icon">🌐</div>
+                        <div class="course-info">
+                            <h3>Веб-дизайн</h3>
+                            <span class="duration">2ч 30мин</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('web-design')">→</button>
+                    </div>
+                    <div class="course-item" onclick="openCourse('graphics')">
+                        <div class="course-icon">🎭</div>
+                        <div class="course-info">
+                            <h3>Графический дизайн</h3>
+                            <span class="duration">4ч 15мин</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('graphics')">→</button>
+                    </div>
+                    <div class="course-item" onclick="openCourse('motion-graphics')">
+                        <div class="course-icon">🎬</div>
+                        <div class="course-info">
+                            <h3>Моушн-графика</h3>
+                            <span class="duration">5ч 20мин</span>
+                        </div>
+                        <button class="course-arrow" onclick="event.stopPropagation(); openCourse('motion-graphics')">→</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Проверка авторизации
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            
+            // Если пользователь не залогинен, перенаправляем на страницу входа
+            if (userLoggedIn !== 'true') {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Инициализация поиска
+            initializeSearch();
+        });
+
+        // Открыть курс
+        function openCourse(courseId) {
+            // Переход на страницу деталей курса
+            window.location.href = `course-details.html?course=${courseId}`;
+        }
+
+        // Инициализация поиска
+        function initializeSearch() {
+            const searchInputs = document.querySelectorAll('.search-input');
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    filterCourses(query);
+                });
+            });
+        }
+
+        // Фильтрация курсов
+        function filterCourses(query) {
+            const courseItems = document.querySelectorAll('.course-item, .course-card');
+            
+            courseItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const isVisible = title.includes(query);
+                
+                item.style.display = isVisible ? 'flex' : 'none';
+            });
+        }
+
+        // Выход из системы
+        function logout() {
+            localStorage.removeItem('userLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        // Показать уведомление
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
