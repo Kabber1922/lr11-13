@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы - Образовательная платформа</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">←</a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск" class="search-input">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="courses-page">
+                <div class="section-header">
+                    <h1>Популярные курсы</h1>
+                    <a href="#" class="see-more">Больше ></a>
+                </div>
+                
+                <div class="courses-grid-large">
+                    <div class="course-item-large" onclick="openCourse('ux-ui')">
+                        <div class="course-icon">🎨</div>
+                        <div class="course-info">
+                            <h3>UX/UI Дизайн</h3>
+                            <span class="duration">3ч 45мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('chemistry')">
+                        <div class="course-icon">🧪</div>
+                        <div class="course-info">
+                            <h3>Химия</h3>
+                            <span class="duration">4ч 20мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('graphics')">
+                        <div class="course-icon">🎭</div>
+                        <div class="course-info">
+                            <h3>Графический дизайн</h3>
+                            <span class="duration">4ч 15мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('biology')">
+                        <div class="course-icon">🧬</div>
+                        <div class="course-info">
+                            <h3>Биология</h3>
+                            <span class="duration">3ч 30мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('zoology')">
+                        <div class="course-icon">🐾</div>
+                        <div class="course-info">
+                            <h3>Зоология</h3>
+                            <span class="duration">2ч 50мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                    
+                    <div class="course-item-large" onclick="openCourse('computer-science')">
+                        <div class="course-icon">💻</div>
+                        <div class="course-info">
+                            <h3>Информатика</h3>
+                            <span class="duration">5ч 10мин</span>
+                        </div>
+                        <button class="course-arrow">→</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

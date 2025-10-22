@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX/UI Дизайн - Детали курса</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="courses.html" class="back-btn">←</a>
+                <h1 class="page-title">Детали</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="course-details">
+                <!-- Основная карточка курса -->
+                <div class="course-card-main">
+                    <div class="course-badge">Топ продаж</div>
+                    <h2>UX/UI Дизайн</h2>
+                    <div class="course-stats">
+                        <span class="views">👁 4.6K</span>
+                        <span class="rating">⭐ 4.7</span>
+                        <span class="likes">❤ 9.6K</span>
+                    </div>
+                </div>
+
+                <!-- Превью курса -->
+                <div class="course-preview">
+                    <h3>Превью курса</h3>
+                    <div class="video-preview">
+                        <div class="play-button">▶</div>
+                        <div class="video-info">
+                            <span class="video-title">Введение</span>
+                            <span class="video-duration">2.56 мин</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Табы навигации -->
+                <div class="course-tabs">
+                    <button class="tab-btn active" onclick="showTab('overview')">Обзор</button>
+                    <button class="tab-btn" onclick="showTab('information')">Информация</button>
+                    <button class="tab-btn" onclick="showTab('certificate')">Сертификат</button>
+                </div>
+
+                <!-- Контент табов -->
+                <div class="tab-content">
+                    <!-- Обзор -->
+                    <div class="tab-panel active" id="overview">
+                        <div class="overview-content">
+                            <div class="progress-info">
+                                <p>6ч 40мин осталось</p>
+                                <p>2 задания к сдаче</p>
+                            </div>
+                            
+                            <div class="course-materials">
+                                <div class="material-item">
+                                    <div class="material-info">
+                                        <h4>Лекционные слайды</h4>
+                                        <span class="material-type">Чтение 20 мин</span>
+                                    </div>
+                                    <button class="download-btn">Скачать</button>
+                                </div>
+                                
+                                <div class="material-item">
+                                    <div class="material-info">
+                                        <h4>Введение</h4>
+                                        <span class="material-type">Викторина 5 вопросов</span>
+                                    </div>
+                                    <button class="download-btn">Скачать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Информация -->
+                    <div class="tab-panel" id="information">
+                        <div class="information-content">
+                            <div class="about-course">
+                                <h3>О курсе</h3>
+                                <p>UX/UI Дизайн - это востребованный курс, который фокусируется на создании приложений и веб-сайтов. Вы изучите принципы пользовательского опыта и интерфейса, научитесь создавать интуитивные и красивые дизайны.</p>
+                                <a href="#" class="read-more">Читать далее</a>
+                            </div>
+                            
+                            <div class="instructor-info">
+                                <h3>Преподаватель</h3>
+                                <div class="instructor-card">
+                                    <div class="instructor-avatar">👨‍💼</div>
+                                    <div class="instructor-details">
+                                        <h4>Дэвид Смит</h4>
+                                        <p>Лектор в Оксфордском университете по специальности UX Дизайнер</p>
+                                        <a href="#" class="see-more">Узнать больше</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Сертификат -->
+                    <div class="tab-panel" id="certificate">
+                        <div class="certificate-content">
+                            <div class="certificate-preview">
+                                <div class="certificate-placeholder">
+                                    <span>Сертификат будет здесь</span>
+                                </div>
+                            </div>
+                            <div class="certificate-actions">
+                                <button class="action-btn">Скачать</button>
+                                <button class="action-btn">Поделиться с друзьями</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопка покупки -->
+                <div class="checkout-section">
+                    <button class="checkout-btn">Оформить заказ →</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

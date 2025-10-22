@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образовательная платформа - Главная</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Приветственное окно -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="welcome-title">Привет</h1>
+            <div class="auth-buttons">
+                <button class="btn btn-primary" onclick="showLogin()">Войти</button>
+                <div class="divider">ИЛИ</div>
+                <button class="btn btn-secondary" onclick="showRegister()">Регистрация</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма входа -->
+    <div class="login-screen" id="loginScreen" style="display: none;">
+        <div class="auth-container">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="auth-title">Войти</h1>
+            <form class="auth-form" id="loginForm">
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Пароль" required>
+                    <span class="input-icon eye">👁</span>
+                </div>
+                <a href="#" class="forgot-password">Забыл пароль?</a>
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <p class="auth-switch">Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Форма регистрации -->
+    <div class="register-screen" id="registerScreen" style="display: none;">
+        <div class="auth-container">
+            <div class="lightbulb-icon">
+                <div class="bulb"></div>
+                <div class="base"></div>
+            </div>
+            <h1 class="auth-title">Зарегистрироваться</h1>
+            <form class="auth-form" id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="registerName" placeholder="Имя" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <span class="input-icon checkmark">✓</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" placeholder="Пароль" required>
+                    <span class="input-icon eye">👁</span>
+                </div>
+                <div class="divider">ИЛИ</div>
+                <button type="button" class="btn btn-google">Войти с аккаунтом Google</button>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                <p class="auth-switch">Уже есть аккаунт? <a href="#" onclick="showLogin()">Войти</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Главное меню -->
+    <div class="main-screen" id="mainScreen" style="display: none;">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="menu-toggle">☰</button>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Поиск" class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <!-- Академические курсы -->
+                <section class="courses-section">
+                    <div class="section-header">
+                        <h2>Академические курсы</h2>
+                        <a href="courses.html" class="see-more">Больше ></a>
+                    </div>
+                    <div class="courses-grid">
+                        <div class="course-card">
+                            <div class="course-icon">🧪</div>
+                            <h3>Наука</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.7</span>
+                                <span class="students">👥 3.5K</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-icon">💼</div>
+                            <h3>Бизнес-исследования</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.9</span>
+                                <span class="students">👥 4.7K</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-icon">🎨</div>
+                            <h3>UX/UI Дизайн</h3>
+                            <div class="course-stats">
+                                <span class="rating">⭐ 4.8</span>
+                                <span class="students">👥 2.1K</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Популярные курсы -->
+                <section class="popular-courses">
+                    <div class="section-header">
+                        <h2>Популярные курсы</h2>
+                        <a href="courses.html" class="see-more">Больше ></a>
+                    </div>
+                    <div class="courses-list">
+                        <div class="course-item">
+                            <div class="course-icon">🎨</div>
+                            <div class="course-info">
+                                <h3>UX/UI Дизайн</h3>
+                                <span class="duration">3ч 45мин</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon">🌐</div>
+                            <div class="course-info">
+                                <h3>Веб-дизайн</h3>
+                                <span class="duration">2ч 30мин</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon">🎭</div>
+                            <div class="course-info">
+                                <h3>Графический дизайн</h3>
+                                <span class="duration">4ч 15мин</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                        <div class="course-item">
+                            <div class="course-icon">🎬</div>
+                            <div class="course-info">
+                                <h3>Моушн-графика</h3>
+                                <span class="duration">5ч 20мин</span>
+                            </div>
+                            <button class="course-arrow">→</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
