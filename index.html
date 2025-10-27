@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         /* Переменные */
         :root {
@@ -379,6 +381,50 @@
             gap: var(--grid-gap);
         }
 
+        /* Swiper стили для курсов */
+        .courses-swiper {
+            padding: 1rem 0 calc(2rem + 1vw) 0;
+        }
+
+        .courses-swiper .swiper-slide {
+            height: auto;
+        }
+
+        .courses-swiper .swiper-button-next,
+        .courses-swiper .swiper-button-prev {
+            color: var(--primary-color);
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .courses-swiper .swiper-button-next:hover,
+        .courses-swiper .swiper-button-prev:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .courses-swiper .swiper-button-next::after,
+        .courses-swiper .swiper-button-prev::after {
+            font-size: 18px;
+        }
+
+        .courses-swiper .swiper-pagination-bullet {
+            background: var(--primary-color);
+            width: 10px;
+            height: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .courses-swiper .swiper-button-next,
+            .courses-swiper .swiper-button-prev {
+                display: none;
+            }
+        }
+
         .course-card {
             background: white;
             border-radius: var(--border-radius);
@@ -587,10 +633,6 @@
             animation: pulse 0.3s ease-in-out;
         }
 
-        .lightbulb-icon {
-            /* Убираем анимации с лампочки */
-        }
-
         /* Адаптивность */
         @media (max-width: 768px) {
             :root {
@@ -745,34 +787,69 @@
                         <h2>Академические курсы</h2>
                         <a href="courses.html" class="see-more">Больше ></a>
                     </div>
-                    <div class="courses-grid">
-                        <div class="course-card" onclick="openCourse('science')">
-                            <div class="course-icon">🧪</div>
-                            <h3>Наука</h3>
-                            <div class="course-stats">
-                                <span class="rating">⭐ 4.7</span>
-                                <span class="students">👥 3.5K</span>
+                    <div class="swiper courses-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="course-card" onclick="openCourse('science')">
+                                    <div class="course-icon">🧪</div>
+                                    <h3>Наука</h3>
+                                    <div class="course-stats">
+                                        <span class="rating">⭐ 4.7</span>
+                                        <span class="students">👥 3.5K</span>
+                                    </div>
+                                    <button class="course-arrow" onclick="event.stopPropagation(); openCourse('science')">→</button>
+                                </div>
                             </div>
-                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('science')">→</button>
-                        </div>
-                        <div class="course-card" onclick="openCourse('business')">
-                            <div class="course-icon">💼</div>
-                            <h3>Бизнес-исследования</h3>
-                            <div class="course-stats">
-                                <span class="rating">⭐ 4.9</span>
-                                <span class="students">👥 4.7K</span>
+                            <div class="swiper-slide">
+                                <div class="course-card" onclick="openCourse('business')">
+                                    <div class="course-icon">💼</div>
+                                    <h3>Бизнес-исследования</h3>
+                                    <div class="course-stats">
+                                        <span class="rating">⭐ 4.9</span>
+                                        <span class="students">👥 4.7K</span>
+                                    </div>
+                                    <button class="course-arrow" onclick="event.stopPropagation(); openCourse('business')">→</button>
+                                </div>
                             </div>
-                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('business')">→</button>
-                        </div>
-                        <div class="course-card" onclick="openCourse('ux-ui')">
-                            <div class="course-icon">🎨</div>
-                            <h3>UX/UI Дизайн</h3>
-                            <div class="course-stats">
-                                <span class="rating">⭐ 4.8</span>
-                                <span class="students">👥 2.1K</span>
+                            <div class="swiper-slide">
+                                <div class="course-card" onclick="openCourse('ux-ui')">
+                                    <div class="course-icon">🎨</div>
+                                    <h3>UX/UI Дизайн</h3>
+                                    <div class="course-stats">
+                                        <span class="rating">⭐ 4.8</span>
+                                        <span class="students">👥 2.1K</span>
+                                    </div>
+                                    <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                                </div>
                             </div>
-                            <button class="course-arrow" onclick="event.stopPropagation(); openCourse('ux-ui')">→</button>
+                            <div class="swiper-slide">
+                                <div class="course-card" onclick="openCourse('programming')">
+                                    <div class="course-icon">💻</div>
+                                    <h3>Программирование</h3>
+                                    <div class="course-stats">
+                                        <span class="rating">⭐ 4.9</span>
+                                        <span class="students">👥 5.2K</span>
+                                    </div>
+                                    <button class="course-arrow" onclick="event.stopPropagation(); openCourse('programming')">→</button>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="course-card" onclick="openCourse('mathematics')">
+                                    <div class="course-icon">📊</div>
+                                    <h3>Математика</h3>
+                                    <div class="course-stats">
+                                        <span class="rating">⭐ 4.6</span>
+                                        <span class="students">👥 3.8K</span>
+                                    </div>
+                                    <button class="course-arrow" onclick="event.stopPropagation(); openCourse('mathematics')">→</button>
+                                </div>
+                            </div>
                         </div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </section>
 
@@ -827,6 +904,7 @@
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             initializeApp();
+            initializeSwiper();
         });
 
         // Инициализация приложения
@@ -1038,6 +1116,41 @@
             // Переход на страницу деталей курса
             window.location.href = `course-details.html?course=${courseId}`;
         }
+
+        // Инициализация Swiper
+        function initializeSwiper() {
+            if (typeof Swiper !== 'undefined') {
+                new Swiper('.courses-swiper', {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 1,
+                            spaceBetween: 10
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 15
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 20
+                        }
+                    }
+                });
+            }
+        }
     </script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>
